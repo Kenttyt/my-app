@@ -1,0 +1,134 @@
+.sport-selector-panel {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.sport-picker-top-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sport-open-picker-btn,
+.sport-close-picker-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sport-open-picker-btn {
+  justify-self: start;
+  color: #ecf4ff;
+  background: linear-gradient(90deg, #0a84ff, #2ea3ff);
+}
+
+.sport-close-picker-btn {
+  color: #210800;
+  background: linear-gradient(90deg, #ff5b3d, #ff8e2b);
+}
+
+.sport-search-top-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.selected-interest-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.selected-interest-chip {
+  border: 1px solid rgba(122, 255, 154, 0.75);
+  background: rgba(20, 58, 40, 0.75);
+  color: #ddffe8;
+  border-radius: 999px;
+  padding: 0.3rem 0.58rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.selected-interest-chip span {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(8, 22, 14, 0.65);
+  font-size: 0.66rem;
+  line-height: 1;
+}
+
+.selected-interest-chip:hover {
+  filter: brightness(1.06);
+}
+
+.sport-search-input {
+  width: 100%;
+  border: 1px solid rgba(88, 131, 181, 0.5);
+  border-radius: 10px;
+  background: rgba(6, 14, 29, 0.92);
+  color: #e9f2ff;
+  padding: 0.58rem 0.72rem;
+  font-size: 0.86rem;
+}
+
+.sport-search-input:focus {
+  outline: none;
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.sport-create-btn {
+  border: 1px dashed rgba(88, 131, 181, 0.55);
+  border-radius: 10px;
+  padding: 0.5rem 0.72rem;
+  background: rgba(9, 22, 41, 0.84);
+  color: #cfe4ff;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sport-create-btn:hover {
+  border-color: rgba(122, 255, 154, 0.8);
+  background: rgba(18, 42, 31, 0.85);
+  color: #e4ffec;
+}
+
+.sport-search-results {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.sport-search-results.wrap {
+  flex-wrap: wrap;
+}
+
+.sport-search-results.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.sport-search-empty {
+  margin: 0;
+  width: 100%;
+  color: #9eb4d7;
+  font-size: 0.82rem;
+  text-align: center;
+  padding: 0.4rem 0;
+}
+
+@media (max-width: 760px) {
+  .sport-search-results.grid {
+    grid-template-columns: 1fr;
+  }
+}

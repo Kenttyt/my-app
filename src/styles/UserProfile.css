@@ -1,0 +1,248 @@
+.profile-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(3, 7, 14, 0.74);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.profile-modal {
+  width: min(580px, 100%);
+  max-height: 90vh;
+  border-radius: 16px;
+  border: 1px solid rgba(88, 131, 181, 0.38);
+  background: linear-gradient(170deg, rgba(7, 15, 31, 0.94), rgba(5, 11, 24, 0.96));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid rgba(88, 131, 181, 0.28);
+}
+
+.profile-header h2 {
+  margin: 0;
+  color: #eef5ff;
+  font-size: 1.3rem;
+}
+
+.btn-close {
+  border: none;
+  background: transparent;
+  color: #bad0ee;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.profile-content {
+  padding: 0.9rem;
+  overflow: auto;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.user-info {
+  border: 1px solid rgba(88, 131, 181, 0.25);
+  border-radius: 12px;
+  background: rgba(11, 22, 44, 0.7);
+  padding: 0.8rem;
+}
+
+.user-info h3 {
+  margin: 0 0 0.2rem;
+  color: #eff6ff;
+  font-size: 1.1rem;
+}
+
+.user-info p {
+  margin: 0;
+  color: #9eb4d7;
+}
+
+.guest-profile-editor {
+  border: 1px solid rgba(88, 131, 181, 0.25);
+  border-radius: 12px;
+  background: rgba(9, 19, 37, 0.75);
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.guest-profile-editor h4 {
+  margin: 0;
+  color: #dce8ff;
+  font-size: 0.95rem;
+}
+
+.guest-profile-editor label {
+  display: grid;
+  gap: 0.3rem;
+  color: #c6d6ee;
+  font-size: 0.82rem;
+}
+
+.guest-profile-editor input,
+.guest-profile-editor textarea {
+  border: 1px solid rgba(88, 131, 181, 0.5);
+  border-radius: 10px;
+  background: rgba(6, 14, 29, 0.92);
+  color: #e9f2ff;
+  padding: 0.6rem 0.72rem;
+  font-size: 0.86rem;
+}
+
+.guest-profile-editor textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.guest-profile-editor input:focus,
+.guest-profile-editor textarea:focus {
+  outline: none;
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.sports-section h4 {
+  margin: 0 0 0.6rem;
+  color: #dce8ff;
+  font-size: 0.95rem;
+}
+
+.selected-sports-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.6rem;
+}
+
+.sports-placeholder {
+  margin: 0;
+  color: #9eb4d7;
+  font-size: 0.86rem;
+}
+
+.selected-sport-btn {
+  border: 1px solid rgba(88, 131, 181, 0.25);
+  border-radius: 999px;
+  background: rgba(9, 19, 37, 0.82);
+  color: #c6d6ee;
+  padding: 0.34rem 0.55rem;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+
+.selected-sport-btn span {
+  color: #ffb0a4;
+  font-weight: 700;
+}
+
+.add-sport-toggle {
+  border: none;
+  border-radius: 10px;
+  padding: 0.52rem 0.8rem;
+  background: linear-gradient(90deg, #0a84ff, #2ea3ff);
+  color: #ecf4ff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sport-search-box {
+  margin-top: 0.55rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.sport-search-box input {
+  border: 1px solid rgba(88, 131, 181, 0.5);
+  border-radius: 10px;
+  background: rgba(6, 14, 29, 0.92);
+  color: #e9f2ff;
+  padding: 0.62rem 0.75rem;
+}
+
+.sport-search-box input:focus {
+  outline: none;
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.sports-helper {
+  margin: 0;
+  color: #9eb4d7;
+  font-size: 0.82rem;
+}
+
+.sports-search-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.sport-result-btn {
+  border: 1px solid rgba(88, 131, 181, 0.25);
+  border-radius: 999px;
+  background: rgba(9, 19, 37, 0.82);
+  color: #c6d6ee;
+  padding: 0.32rem 0.55rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.error-message,
+.success-message {
+  border-radius: 8px;
+  padding: 0.55rem;
+  text-align: center;
+}
+
+.error-message {
+  color: #ffd7d0;
+  background: rgba(84, 17, 13, 0.92);
+}
+
+.success-message {
+  color: #d9ffe5;
+  background: rgba(16, 69, 36, 0.92);
+}
+
+.profile-actions {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.btn-save,
+.btn-logout {
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-save {
+  color: #041325;
+  background: linear-gradient(90deg, #7aff9a, #47d06f);
+}
+
+.btn-logout {
+  color: #f6e7e4;
+  background: linear-gradient(90deg, #ff5b3d, #ff8e2b);
+}
+
+@media (max-width: 520px) {
+  .profile-actions {
+    flex-direction: column;
+  }
+}

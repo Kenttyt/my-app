@@ -1,0 +1,279 @@
+.room-list {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  background: linear-gradient(180deg, rgba(8, 18, 35, 0.86), rgba(6, 14, 28, 0.94));
+  border: 1px solid rgba(88, 131, 181, 0.2);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.room-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(88, 131, 181, 0.22);
+  background: rgba(6, 15, 30, 0.7);
+}
+
+.room-list-header h2 {
+  margin: 0;
+  color: #e6efff;
+  font-size: 1.04rem;
+  font-weight: 700;
+}
+
+.btn-create {
+  border: none;
+  border-radius: 999px;
+  padding: 0.48rem 0.82rem;
+  color: #180700;
+  background: linear-gradient(90deg, #ff5b3d, #ff8e2b);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(255, 91, 61, 0.24);
+}
+
+.btn-create:hover {
+  transform: translateY(-1px);
+}
+
+.btn-create:active {
+  transform: translateY(0);
+}
+
+.create-room-form {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(88, 131, 181, 0.22);
+  background: rgba(8, 18, 34, 0.56);
+}
+
+.create-room-form input {
+  border: 1px solid rgba(88, 131, 181, 0.5);
+  border-radius: 10px;
+  padding: 0.58rem 0.72rem;
+  background: rgba(8, 18, 34, 0.88);
+  color: #eaf2ff;
+}
+
+.create-room-form input:focus {
+  outline: none;
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.create-room-form button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.45rem 0.74rem;
+  background: #0a84ff;
+  color: #eaf3ff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.create-room-form .btn-cancel {
+  background: rgba(17, 34, 64, 0.95);
+  border: 1px solid rgba(88, 131, 181, 0.35);
+}
+
+.rooms {
+  overflow: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.room-item {
+  border: 1px solid rgba(88, 131, 181, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 0.82rem;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+  background: rgba(9, 21, 40, 0.72);
+}
+
+.room-item:hover {
+  background: rgba(16, 36, 66, 0.72);
+  border-color: rgba(88, 131, 181, 0.34);
+  transform: translateY(-1px);
+}
+
+.room-item.active {
+  background: linear-gradient(90deg, rgba(10, 132, 255, 0.2), rgba(69, 210, 111, 0.14));
+  border-color: rgba(74, 170, 255, 0.62);
+  box-shadow: 0 10px 20px rgba(7, 28, 56, 0.32);
+}
+
+.room-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.room-item-actions {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.btn-room-menu {
+  border: 1px solid rgba(88, 131, 181, 0.36);
+  background: rgba(11, 25, 47, 0.92);
+  color: #d7e7ff;
+  border-radius: 10px;
+  width: 32px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1;
+  padding-bottom: 1px;
+}
+
+.btn-room-menu:hover {
+  border-color: rgba(109, 159, 222, 0.7);
+  background: rgba(14, 32, 59, 0.94);
+}
+
+.room-actions-popout {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 0.35rem);
+  transform: translateY(-50%);
+  z-index: 10;
+  min-width: 128px;
+  border: 1px solid rgba(88, 131, 181, 0.38);
+  border-radius: 10px;
+  background: rgba(8, 18, 35, 0.98);
+  padding: 0.35rem;
+  box-shadow: 0 12px 24px rgba(3, 11, 24, 0.38);
+}
+
+.room-info h3 {
+  margin: 0 0 0.22rem;
+  color: #edf4ff;
+  font-size: 0.96rem;
+  line-height: 1.25;
+}
+
+.btn-delete-room {
+  border: 1px solid rgba(255, 110, 87, 0.6);
+  background: rgba(80, 22, 14, 0.9);
+  color: #ffd8d1;
+  border-radius: 8px;
+  width: 100%;
+  padding: 0.38rem 0.56rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-delete-room:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.member-count {
+  color: #9eb4d7;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+}
+
+.loading,
+.empty-state,
+.error-message {
+  padding: 1rem 1.1rem;
+  text-align: center;
+  color: #9eb4d7;
+}
+
+.error-message {
+  color: #ffc5bb;
+}
+
+@media (max-width: 760px) {
+  .create-room-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+body[data-theme='light'] .room-list-header {
+  border-bottom-color: rgba(43, 90, 148, 0.18);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+body[data-theme='light'] .room-list-header h2 {
+  color: #1c3352;
+}
+
+body[data-theme='light'] .create-room-form {
+  border-bottom-color: rgba(43, 90, 148, 0.16);
+  background: rgba(248, 252, 255, 0.92);
+}
+
+body[data-theme='light'] .create-room-form input {
+  border-color: rgba(43, 90, 148, 0.28);
+  background: rgba(255, 255, 255, 0.95);
+  color: #17314f;
+}
+
+body[data-theme='light'] .create-room-form .btn-cancel {
+  background: #edf4ff;
+  border-color: rgba(43, 90, 148, 0.26);
+  color: #264a70;
+}
+
+body[data-theme='light'] .room-item {
+  border-color: rgba(43, 90, 148, 0.16);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+body[data-theme='light'] .room-item:hover {
+  background: rgba(214, 233, 255, 0.5);
+}
+
+body[data-theme='light'] .room-item.active {
+  background: linear-gradient(90deg, rgba(18, 123, 255, 0.18), rgba(76, 200, 125, 0.18));
+  border-color: rgba(18, 123, 255, 0.36);
+}
+
+body[data-theme='light'] .btn-room-menu {
+  border-color: rgba(43, 90, 148, 0.26);
+  background: rgba(241, 248, 255, 0.95);
+  color: #2a4c72;
+}
+
+body[data-theme='light'] .room-actions-popout {
+  border-color: rgba(43, 90, 148, 0.26);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+body[data-theme='light'] .room-list {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(241, 248, 255, 0.95));
+  border-color: rgba(43, 90, 148, 0.18);
+}
+
+body[data-theme='light'] .room-info h3 {
+  color: #193754;
+}
+
+body[data-theme='light'] .member-count {
+  color: #3f5775;
+}
+
+body[data-theme='light'] .loading,
+body[data-theme='light'] .empty-state,
+body[data-theme='light'] .error-message {
+  color: #446183;
+}
+
+body[data-theme='light'] .error-message {
+  color: #8d2f27;
+}

@@ -1,0 +1,133 @@
+.auth-container {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(10, 132, 255, 0.25), transparent 30%),
+    radial-gradient(circle at 85% 5%, rgba(255, 91, 61, 0.28), transparent 34%),
+    linear-gradient(160deg, #03060f 0%, #081428 45%, #050b17 100%);
+}
+
+.auth-card {
+  width: min(560px, 100%);
+  border: 1px solid rgba(88, 131, 181, 0.38);
+  border-radius: 18px;
+  background: linear-gradient(170deg, rgba(7, 15, 31, 0.9), rgba(4, 10, 22, 0.95));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+  padding: 1.4rem;
+}
+
+.auth-card h1 {
+  margin: 0;
+  color: #f0f6ff;
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  text-align: center;
+}
+
+.subtitle {
+  margin: 0.25rem 0 1rem;
+  text-align: center;
+  color: #a7bbda;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.auth-card input {
+  border: 1px solid rgba(88, 131, 181, 0.5);
+  border-radius: 10px;
+  background: rgba(6, 14, 29, 0.92);
+  color: #e9f2ff;
+  padding: 0.72rem 0.8rem;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.auth-card button[type='submit'] {
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem;
+  margin-top: 0.2rem;
+  background: linear-gradient(90deg, #0a84ff, #2ea3ff);
+  color: #ecf4ff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-card button[type='submit']:hover:not(:disabled) {
+  box-shadow: 0 0 20px rgba(10, 132, 255, 0.34);
+}
+
+.sports-selector {
+  margin: 0.35rem 0;
+}
+
+.sports-selector label {
+  color: #d4e3fb;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.sports-grid {
+  margin-top: 0.45rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.sport-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid rgba(88, 131, 181, 0.28);
+  border-radius: 9px;
+  padding: 0.4rem 0.45rem;
+  color: #bfd0ea;
+  cursor: pointer;
+}
+
+.sport-checkbox:hover {
+  background: rgba(14, 29, 54, 0.82);
+}
+
+.sport-checkbox input[type='checkbox'] {
+  accent-color: #7aff9a;
+}
+
+.error-message {
+  background: rgba(94, 22, 18, 0.9);
+  color: #ffd5cf;
+  border: 1px solid rgba(255, 91, 61, 0.45);
+  border-radius: 9px;
+  padding: 0.58rem;
+  text-align: center;
+}
+
+.toggle-auth {
+  margin-top: 0.85rem;
+  color: #a7bbda;
+  text-align: center;
+}
+
+.toggle-auth button {
+  border: none;
+  background: none;
+  color: #7aff9a;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .sports-grid {
+    grid-template-columns: 1fr;
+  }
+}
