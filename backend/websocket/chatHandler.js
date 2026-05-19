@@ -14,6 +14,10 @@ export const chatNamespace = (io) => {
 
     emitOnlineCount();
 
+    socket.on('get-online-count', () => {
+      socket.emit('online-count', { count: io.sockets.sockets.size });
+    });
+
     const clearWaitingForSocket = (socketId) => {
       const index = waitingQueue.findIndex((item) => item.socketId === socketId);
       if (index !== -1) {

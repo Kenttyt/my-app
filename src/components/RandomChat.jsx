@@ -105,6 +105,7 @@ export default function RandomChat({ selectedInterests = [] }) {
     socket.on('user-typing', onTyping);
     socket.on('user-stop-typing', onStopTyping);
     socket.on('online-count', onOnlineCount);
+    socket.emit('get-online-count');
 
     return () => {
       socket.off('matchmaking', onMatchmaking);

@@ -11,6 +11,7 @@ export default function LandingPage({
   useEffect(() => {
     const onOnlineCount = ({ count }) => setOnlineCount(Number(count) || 0);
     socket.on('online-count', onOnlineCount);
+    socket.emit('get-online-count');
     return () => socket.off('online-count', onOnlineCount);
   }, []);
 
