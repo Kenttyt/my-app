@@ -8,6 +8,12 @@ export const chatNamespace = (io) => {
   io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
 
+    const emitOnlineCount = () => {
+      io.emit('online-count', { count: io.sockets.sockets.size });
+    };
+
+    emitOnlineCount();
+
     const clearWaitingForSocket = (socketId) => {
       const index = waitingQueue.findIndex((item) => item.socketId === socketId);
       if (index !== -1) {
@@ -326,6 +332,7 @@ export const chatNamespace = (io) => {
       clearWaitingForSocket(socket.id);
       clearPairingForSocket(socket.id);
       console.log(`User disconnected: ${socket.id}`);
+      emitOnlineCount();
     });
   });
 };

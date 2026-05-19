@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react';
+import socket from '../services/socket';
 import '../styles/LandingPage.css';
 
 export default function LandingPage({
   onStartChatting,
   onFindStranger
 }) {
+  const [onlineCount, setOnlineCount] = useState(0);
+
+  useEffect(() => {
+    const onOnlineCount = ({ count }) => setOnlineCount(Number(count) || 0);
+    socket.on('online-count', onOnlineCount);
+    return () => socket.off('online-count', onOnlineCount);
+  }, []);
+
   return (
     <section className="landing-wrap">
       <div className="landing-glow landing-glow-red" />
@@ -29,8 +39,8 @@ export default function LandingPage({
 
       <div className="community-cards">
         <article>
-          <span className="stat">24/7</span>
-          <p>Always-on community chat lanes</p>
+          <span className="stat">{onlineCount}</span>
+          <p>People online right now</p>
         </article>
         <article>
           <span className="stat">Random</span>

@@ -47,6 +47,22 @@
   font-size: 0.82rem;
 }
 
+.status-stack {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.online-pill {
+  border: 1px solid rgba(122, 255, 154, 0.45);
+  border-radius: 999px;
+  color: #bff5cd;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.78rem;
+  background: rgba(18, 39, 27, 0.6);
+}
+
 .dot {
   width: 0.56rem;
   height: 0.56rem;

@@ -9,6 +9,7 @@ export default function RandomChat({ selectedInterests = [] }) {
   const [status, setStatus] = useState('idle');
   const [roomId, setRoomId] = useState('');
   const [peer, setPeer] = useState(null);
+  const [onlineCount, setOnlineCount] = useState(0);
   const [messages, setMessages] = useState([]);
   const [draft, setDraft] = useState('');
   const [typing, setTyping] = useState(false);
@@ -94,6 +95,7 @@ export default function RandomChat({ selectedInterests = [] }) {
 
     const onTyping = () => setTyping(true);
     const onStopTyping = () => setTyping(false);
+    const onOnlineCount = ({ count }) => setOnlineCount(Number(count) || 0);
 
     socket.on('matchmaking', onMatchmaking);
     socket.on('stranger-found', onStrangerFound);
@@ -102,6 +104,7 @@ export default function RandomChat({ selectedInterests = [] }) {
     socket.on('stranger-disconnected', onDisconnected);
     socket.on('user-typing', onTyping);
     socket.on('user-stop-typing', onStopTyping);
+    socket.on('online-count', onOnlineCount);
 
     return () => {
       socket.off('matchmaking', onMatchmaking);
@@ -111,6 +114,7 @@ export default function RandomChat({ selectedInterests = [] }) {
       socket.off('stranger-disconnected', onDisconnected);
       socket.off('user-typing', onTyping);
       socket.off('user-stop-typing', onStopTyping);
+      socket.off('online-count', onOnlineCount);
     };
   }, [roomId]);
 
@@ -241,9 +245,14 @@ export default function RandomChat({ selectedInterests = [] }) {
             Interests: <strong>{selectedInterestsLabel}</strong>
           </p>
         </div>
-        <div className="status-pill">
-          <span className={`dot ${status}`} />
-          {status === 'connected' ? 'Online' : status === 'searching' ? 'Searching' : 'Offline'}
+        <div className="status-stack">
+          <div className="status-pill">
+            <span className={`dot ${status}`} />
+            {status === 'connected' ? 'Online' : status === 'searching' ? 'Searching' : 'Offline'}
+          </div>
+          <div className="online-pill">
+            {onlineCount} online
+          </div>
         </div>
       </header>
 
