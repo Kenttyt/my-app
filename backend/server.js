@@ -40,5 +40,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3001;
 httpServer.listen(PORT, () => {
-  console.log(`InterestHub server running on port ${PORT}`);
+  console.log(`ChatHive server running on port ${PORT}`);
 });

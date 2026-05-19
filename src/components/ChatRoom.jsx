@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { io } from 'socket.io-client';
+import socket from '../services/socket';
 import { chatService } from '../services/api';
 import '../styles/ChatRoom.css';
-
-const socket = io('http://localhost:3001');
 const REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🔥'];
 
 export default function ChatRoom({ room }) {
@@ -286,7 +284,7 @@ export default function ChatRoom({ room }) {
               {joinedUsers.map((member) => (
                 <li key={member.id} className="member-item">
                   <span>{member.username}</span>
-                  <span className={`member-dot ${member.onlineStatus ? 'online' : ''}`} />
+                  <span className="member-dot online" title="Online" />
                 </li>
               ))}
             </ul>

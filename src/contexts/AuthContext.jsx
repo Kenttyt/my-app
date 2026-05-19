@@ -8,7 +8,7 @@ const createGuestSession = () => {
     guestUser: {
       id: guestId,
       username: `Guest${guestId.slice(-4)}`,
-      email: `${guestId}@local.interesthub`,
+      email: `${guestId}@local.chathive`,
       interests: [],
       sports: [],
       bio: ''

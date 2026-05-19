@@ -1,4 +1,4 @@
-import { users, rooms, messages } from '../utils/storage.js';
+import { users, userDirectory, rooms, messages } from '../utils/storage.js';
 
 const waitingQueue = [];
 const pairedBySocket = new Map();
@@ -66,10 +66,18 @@ export const chatNamespace = (io) => {
           : normalizedInterests
       };
 
-      const rivalIndex = waitingQueue.findIndex(
+      // Try to find someone with matching interests first
+      let rivalIndex = waitingQueue.findIndex(
         (candidate) => candidate.socketId !== socket.id
           && hasInterestOverlap(candidate.interests, normalizedInterests)
       );
+
+      // Fallback: connect to anyone available if no interest match
+      if (rivalIndex === -1) {
+        rivalIndex = waitingQueue.findIndex(
+          (candidate) => candidate.socketId !== socket.id
+        );
+      }
 
       if (rivalIndex === -1) {
         waitingQueue.push({
@@ -104,7 +112,7 @@ export const chatNamespace = (io) => {
         return;
       }
 
-      const matchedInterest = normalizedInterests.find((item) => rival.interests.includes(item)) || normalizedInterests[0];
+      const matchedInterest = normalizedInterests.find((item) => rival.interests.includes(item)) || '';
 
       const roomId = `random-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       socket.join(roomId);
@@ -175,6 +183,10 @@ export const chatNamespace = (io) => {
     // User joins a room
     socket.on('join-room', ({ roomId, userId, username }) => {
       socket.join(roomId);
+
+      if (userId && username) {
+        userDirectory.set(userId, { username });
+      }
 
       const room = rooms.get(roomId);
       if (room && !room.members.includes(userId)) {
@@ -266,7 +278,7 @@ export const chatNamespace = (io) => {
       }
     });
 
-    socket.on('react-message', ({ messageId, roomId, userId, emoji }) => {
+    socket.on('react-message', ({ messageId, roomId, userId, reactionKey, emoji }) => {
       if (!ALLOWED_REACTIONS.includes(emoji)) {
         return;
       }
@@ -276,6 +288,8 @@ export const chatNamespace = (io) => {
         return;
       }
 
+      const reactionOwner = reactionKey || userId || socket.id;
+
       if (!message.reactions || typeof message.reactions !== 'object') {
         message.reactions = {};
       }
@@ -284,7 +298,7 @@ export const chatNamespace = (io) => {
         message.reactedUsers = {};
       }
 
-      const previousReaction = message.reactedUsers[userId];
+      const previousReaction = message.reactedUsers[reactionOwner];
 
       if (previousReaction) {
         message.reactions[previousReaction] = Math.max((message.reactions[previousReaction] || 1) - 1, 0);
@@ -294,9 +308,9 @@ export const chatNamespace = (io) => {
       }
 
       if (previousReaction === emoji) {
-        delete message.reactedUsers[userId];
+        delete message.reactedUsers[reactionOwner];
       } else {
-        message.reactedUsers[userId] = emoji;
+        message.reactedUsers[reactionOwner] = emoji;
         message.reactions[emoji] = (message.reactions[emoji] || 0) + 1;
       }
 

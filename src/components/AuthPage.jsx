@@ -66,7 +66,7 @@ export default function AuthPage({ onAuthSuccess }) {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>InterestHub</h1>
+        <h1>ChatHive</h1>
         <p className="subtitle">Connect instantly with people who share your interests</p>
 
         <form onSubmit={handleSubmit}>

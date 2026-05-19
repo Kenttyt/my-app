@@ -1,5 +1,5 @@
 import express from 'express';
-import { messages, rooms, users } from '../utils/storage.js';
+import { messages, rooms, users, userDirectory } from '../utils/storage.js';
 
 const router = express.Router();
 
@@ -47,10 +47,11 @@ router.get('/rooms/:roomId/members', (req, res) => {
 
   const members = uniqueMemberIds.map((memberId) => {
     const matchedUser = Array.from(users.values()).find((u) => u.id === memberId);
+    const directoryEntry = userDirectory.get(memberId);
 
     return {
       id: memberId,
-      username: matchedUser?.username || 'Unknown user',
+      username: matchedUser?.username || directoryEntry?.username || 'Unknown user',
       onlineStatus: Boolean(matchedUser?.onlineStatus)
     };
   });
@@ -98,6 +99,40 @@ router.post('/rooms', (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to create room' });
+  }
+});
+
+// Delete a room
+router.delete('/rooms/:roomId', (req, res) => {
+  try {
+    const { roomId } = req.params;
+    const room = rooms.get(roomId);
+
+    if (!room) {
+      return res.status(404).json({ error: 'Room not found' });
+    }
+
+    // Only the creator can delete the room
+    if (room.creator !== req.user.id) {
+      return res.status(403).json({ error: 'Only the room creator can delete this room' });
+    }
+
+    rooms.delete(roomId);
+
+    // Clean up messages for this room
+    const roomMessageIndexes = [];
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].roomId === roomId) {
+        roomMessageIndexes.push(i);
+      }
+    }
+    for (const index of roomMessageIndexes) {
+      messages.splice(index, 1);
+    }
+
+    res.json({ message: 'Room deleted' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete room' });
   }
 });
 

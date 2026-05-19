@@ -8,7 +8,7 @@ export const authenticateToken = (req, res, next) => {
     const guestId = token;
     req.user = {
       id: guestId,
-      email: `${guestId}@local.interesthub`,
+      email: `${guestId}@local.chathive`,
       username: `Guest${guestId.slice(-4)}`
     };
     return next();
@@ -17,7 +17,7 @@ export const authenticateToken = (req, res, next) => {
   if (!token) {
     req.user = {
       id: 'guest-anon',
-      email: 'guest-anon@local.interesthub',
+      email: 'guest-anon@local.chathive',
       username: 'GuestAnon'
     };
     return next();
@@ -28,7 +28,7 @@ export const authenticateToken = (req, res, next) => {
       const guestId = `guest-${Date.now()}`;
       req.user = {
         id: guestId,
-        email: `${guestId}@local.interesthub`,
+        email: `${guestId}@local.chathive`,
         username: `Guest${guestId.slice(-4)}`
       };
       return next();

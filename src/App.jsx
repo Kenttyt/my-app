@@ -138,7 +138,7 @@ export default function App() {
     <div className="app-container">
       <div className="app-header">
         <div className="brand-block">
-          <h1>InterestHub</h1>
+          <h1>ChatHive</h1>
           <p>Where real-time conversations happen</p>
         </div>
 

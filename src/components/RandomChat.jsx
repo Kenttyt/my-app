@@ -1,9 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { io } from 'socket.io-client';
 import { useAuth } from '../contexts/AuthContext';
+import socket from '../services/socket';
 import '../styles/RandomChat.css';
-
-const socket = io('http://localhost:3001');
 const REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🔥'];
 
 export default function RandomChat({ selectedInterests = [] }) {
@@ -219,10 +217,12 @@ export default function RandomChat({ selectedInterests = [] }) {
       return;
     }
 
+    const reactionKey = socket.id ? `${user?.id || 'guest'}:${socket.id}` : user?.id;
     socket.emit('react-message', {
       roomId,
       messageId,
       userId: user.id,
+      reactionKey,
       emoji
     });
     setReactionMenuFor('');

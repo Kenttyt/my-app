@@ -1,5 +1,6 @@
 // In-memory storage for demo (replace with MongoDB in production)
 const users = new Map();
+const userDirectory = new Map();
 const rooms = new Map();
 const messages = [];
 
@@ -44,4 +45,4 @@ const INTERESTS = [
 
 const SPORTS = INTERESTS;
 
-export { users, rooms, messages, INTERESTS, SPORTS };
+export { users, userDirectory, rooms, messages, INTERESTS, SPORTS };
