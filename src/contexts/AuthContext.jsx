@@ -2,6 +2,22 @@ import { useEffect, useState, createContext, useContext } from 'react';
 
 const AuthContext = createContext();
 
+const isGuestToken = (value) => typeof value === 'string' && value.startsWith('guest-');
+
+const getStoredUser = () => {
+  const savedToken = localStorage.getItem('token');
+  const savedUser = localStorage.getItem('user');
+  if (savedToken && !isGuestToken(savedToken) && savedUser) {
+    return JSON.parse(savedUser);
+  }
+  return null;
+};
+
+const getStoredToken = () => {
+  const savedToken = localStorage.getItem('token');
+  return savedToken && !isGuestToken(savedToken) ? savedToken : null;
+};
+
 const createGuestSession = () => {
   const guestId = `guest-${Date.now()}`;
   return {
@@ -18,14 +34,9 @@ const createGuestSession = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('user');
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [user, setUser] = useState(() => getStoredUser());
 
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem('token') || null;
-  });
+  const [token, setToken] = useState(() => getStoredToken());
 
   useEffect(() => {
     if (user && token) {
