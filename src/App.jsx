@@ -196,28 +196,26 @@ export default function App() {
         />
       )}
 
-      {view === 'random' && (
-        <div className="random-shell">
-          <SportSelector
-            sports={interestOptions}
-            selectedSports={selectedRandomInterests}
-            onToggleSport={toggleRandomInterest}
-            onRemoveSport={removeInterestOption}
-            onCreateSport={addInterestOption}
-            placeholder="Search and pick interests for random chat"
-            buttonClassName="sport-chip"
-            layout="wrap"
-            containerClassName="floating-sports"
-            collapsible={true}
-            openLabel={`Select Interests (${selectedRandomInterests.length})`}
-            closeLabel="Close Interests"
-            multiSelect={true}
-            allowCreate={true}
-          />
+      <div className="random-shell" hidden={view !== 'random'} aria-hidden={view !== 'random'}>
+        <SportSelector
+          sports={interestOptions}
+          selectedSports={selectedRandomInterests}
+          onToggleSport={toggleRandomInterest}
+          onRemoveSport={removeInterestOption}
+          onCreateSport={addInterestOption}
+          placeholder="Search and pick interests for random chat"
+          buttonClassName="sport-chip"
+          layout="wrap"
+          containerClassName="floating-sports"
+          collapsible={true}
+          openLabel={`Select Interests (${selectedRandomInterests.length})`}
+          closeLabel="Close Interests"
+          multiSelect={true}
+          allowCreate={true}
+        />
 
-          <RandomChat selectedInterests={selectedRandomInterests} />
-        </div>
-      )}
+        <RandomChat selectedInterests={selectedRandomInterests} />
+      </div>
 
       {view === 'rooms' && (
         <div className="app-main">
