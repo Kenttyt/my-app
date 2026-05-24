@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import socket from '../services/socket';
+import socket, { ensureSocketConnected } from '../services/socket';
 import { chatService } from '../services/api';
 import '../styles/ChatRoom.css';
 const REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🔥'];
@@ -40,19 +40,23 @@ export default function ChatRoom({ room }) {
     fetchHistory();
 
     // Join room
-    socket.emit('join-room', {
-      roomId: room.id,
-      userId: user.id,
-      username: user.username
-    });
-
-    setLoading(false);
-    return () => {
-      socket.emit('leave-room', {
+    ensureSocketConnected().then(() => {
+      socket.emit('join-room', {
         roomId: room.id,
         userId: user.id,
         username: user.username
       });
+    });
+
+    setLoading(false);
+    return () => {
+      if (socket.connected) {
+        socket.emit('leave-room', {
+          roomId: room.id,
+          userId: user.id,
+          username: user.username
+        });
+      }
     };
   }, [room, user]);
 

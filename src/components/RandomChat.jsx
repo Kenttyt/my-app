@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import socket from '../services/socket';
+import socket, { ensureSocketConnected } from '../services/socket';
 import '../styles/RandomChat.css';
 const REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🔥'];
 
@@ -17,6 +17,8 @@ export default function RandomChat({ selectedInterests = [] }) {
   const [reactionMenuFor, setReactionMenuFor] = useState('');
   const messagesEndRef = useRef(null);
   const typingTimerRef = useRef(null);
+  const listenersReadyRef = useRef(false);
+  const pendingActionRef = useRef('');
 
   const canType = useMemo(() => status === 'connected' && roomId, [status, roomId]);
   const selectedInterestsLabel = useMemo(() => {
@@ -106,6 +108,13 @@ export default function RandomChat({ selectedInterests = [] }) {
     socket.on('user-stop-typing', onStopTyping);
     socket.on('online-count', onOnlineCount);
     socket.emit('get-online-count');
+    listenersReadyRef.current = true;
+
+    if (pendingActionRef.current) {
+      const action = pendingActionRef.current;
+      pendingActionRef.current = '';
+      startMatchmaking(action, true);
+    }
 
     return () => {
       socket.off('matchmaking', onMatchmaking);
@@ -130,13 +139,20 @@ export default function RandomChat({ selectedInterests = [] }) {
     };
   }, []);
 
-  const startSearch = () => {
+  const startMatchmaking = (eventName, force = false) => {
     if (!user) {
       return;
     }
+
+    if (!listenersReadyRef.current && !force) {
+      pendingActionRef.current = eventName;
+      return;
+    }
+
     setDraft('');
     setTyping(false);
-    socket.emit('find-stranger', {
+
+    const payload = {
       userId: user.id,
       username: user.username,
       interests: selectedInterests,
@@ -146,26 +162,19 @@ export default function RandomChat({ selectedInterests = [] }) {
       bio: user.bio || '',
       profileInterests: user.interests || user.sports || [],
       profileSports: user.interests || user.sports || []
+    };
+
+    ensureSocketConnected().then(() => {
+      socket.emit(eventName, payload);
     });
   };
 
+  const startSearch = () => {
+    startMatchmaking('find-stranger');
+  };
+
   const nextStranger = () => {
-    if (!user) {
-      return;
-    }
-    setDraft('');
-    setTyping(false);
-    socket.emit('next-stranger', {
-      userId: user.id,
-      username: user.username,
-      interests: selectedInterests,
-      interest: selectedInterests[0] || 'General',
-      sports: selectedInterests,
-      sport: selectedInterests[0] || 'General',
-      bio: user.bio || '',
-      profileInterests: user.interests || user.sports || [],
-      profileSports: user.interests || user.sports || []
-    });
+    startMatchmaking('next-stranger');
   };
 
   const stopSearch = () => {

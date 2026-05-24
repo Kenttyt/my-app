@@ -10,4 +10,19 @@ const socket = io(SOCKET_URL, {
   reconnectionDelay: 1000
 });
 
+export const ensureSocketConnected = () => new Promise((resolve) => {
+  if (socket.connected) {
+    resolve();
+    return;
+  }
+
+  const handleConnect = () => {
+    socket.off('connect', handleConnect);
+    resolve();
+  };
+
+  socket.on('connect', handleConnect);
+  socket.connect();
+});
+
 export default socket;
